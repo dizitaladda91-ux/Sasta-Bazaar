@@ -100,7 +100,7 @@ export default function CollectionPage() {
         </nav>
 
         {/* Collection Header Banner */}
-        <div className="bg-gradient-to-r from-sasta-yellow-light/80 to-sasta-yellow-cream p-6 sm:p-10 rounded-xl border border-sasta-border mb-10 text-center max-w-4xl mx-auto shadow-2xs">
+        <div className="bg-sasta-yellow-light p-6 sm:p-10 rounded-xl border border-sasta-border mb-10 text-center max-w-4xl mx-auto shadow-2xs">
           <span className="text-[10px] font-bold tracking-[0.25em] text-sasta-gold-dark uppercase block mb-1">
             Everyday Luxury
           </span>

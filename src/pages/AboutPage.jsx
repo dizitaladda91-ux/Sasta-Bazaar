@@ -11,13 +11,18 @@ export default function AboutPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Header */}
-      <div className="bg-gradient-to-r from-sasta-yellow-light/80 to-sasta-yellow-cream py-16 sm:py-24 border-b border-sasta-border text-center px-4">
-        <div className="max-w-3xl mx-auto space-y-3">
+      <div className="bg-sasta-yellow-light py-16 sm:py-24 border-b border-sasta-border text-center px-4">
+        <div className="max-w-3xl mx-auto space-y-4 flex flex-col items-center">
+          <img
+            src="/logo.png"
+            alt="SASTA BAZAAR - Everyday Luxury"
+            className="h-28 sm:h-36 w-auto object-contain mx-auto"
+          />
           <span className="text-[11px] font-bold tracking-[0.25em] text-sasta-gold-dark uppercase block">
             Our Heritage &amp; Vision
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-sasta-heading">
-            SASTA BAZAAR &bull; Everyday Luxury
+            Everyday Luxury Ethnic Fashion
           </h1>
           <p className="text-xs sm:text-base text-sasta-body leading-relaxed max-w-xl mx-auto">
             Ladies and kids ethnic fashion curated with high quality fabrics, authentic craftsmanship, and honest pricing.

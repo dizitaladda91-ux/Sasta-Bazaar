@@ -72,13 +72,12 @@ export default function Header() {
 
             {/* Center Column: Logo */}
             <div className="text-center flex flex-col items-center justify-center">
-              <Link to="/" className="inline-block group">
-                <span className="font-serif font-extrabold text-xl sm:text-2xl md:text-3xl tracking-widest text-sasta-navy group-hover:text-sasta-gold-dark transition-colors">
-                  SASTA BAZAAR
-                </span>
-                <span className="block text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.25em] text-sasta-gold-dark font-semibold uppercase -mt-0.5 sm:-mt-1">
-                  Everyday Luxury
-                </span>
+              <Link to="/" className="inline-block group py-0.5">
+                <img
+                  src="/logo.png"
+                  alt="SASTA BAZAAR - Everyday Luxury"
+                  className="h-12 sm:h-16 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                />
               </Link>
             </div>
 

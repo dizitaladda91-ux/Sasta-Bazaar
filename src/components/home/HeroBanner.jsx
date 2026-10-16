@@ -4,7 +4,7 @@ import { Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function HeroBanner() {
   return (
-    <section className="relative bg-gradient-to-r from-sasta-yellow-light/80 via-white to-sasta-yellow-cream border-b border-sasta-border overflow-hidden">
+    <section className="relative bg-sasta-yellow-light border-b border-sasta-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Text Content */}
@@ -71,16 +71,15 @@ export default function HeroBanner() {
                   alt="Sasta Bazaar Everyday Luxury Ethnic Fashion"
                   className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-white p-3 rounded bg-black/30 backdrop-blur-xs">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-sasta-gold">
+                <div className="absolute bottom-4 left-4 right-4 bg-white/95 text-sasta-heading p-3.5 rounded-lg border border-sasta-border shadow-md">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-sasta-gold-dark block">
                     Best Seller &bull; SB01
                   </span>
-                  <p className="font-serif text-sm font-semibold truncate">
+                  <p className="font-serif text-sm font-bold truncate text-sasta-heading">
                     Lavender Lilac Chickenkari Kurta Pant Set
                   </p>
-                  <p className="text-xs font-bold text-sasta-gold mt-0.5">
-                    £9.99 <span className="line-through text-white/70 font-normal">£19.99</span>
+                  <p className="text-xs font-bold text-sasta-navy mt-0.5">
+                    £9.99 <span className="line-through text-sasta-muted font-normal ml-1">£19.99</span>
                   </p>
                 </div>
               </div>

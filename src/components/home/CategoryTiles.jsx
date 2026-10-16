@@ -26,7 +26,7 @@ export default function CategoryTiles() {
           {topThree.map((cat) => (
             <div
               key={cat.id}
-              className="group relative rounded-lg overflow-hidden border border-sasta-border shadow-xs hover:shadow-card transition-all duration-300 flex flex-col"
+              className="group rounded-xl overflow-hidden border border-sasta-border shadow-xs hover:shadow-card transition-all duration-300 flex flex-col bg-white"
             >
               {/* Image Frame */}
               <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-neutral-100">
@@ -36,28 +36,29 @@ export default function CategoryTiles() {
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute top-3 left-3 bg-white text-sasta-navy text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded shadow-xs border border-sasta-border">
+                  {cat.itemCount}+ Designs
+                </div>
+              </div>
 
-                {/* Content Overlay */}
-                <div className="absolute inset-x-0 bottom-0 p-6 text-white text-center flex flex-col items-center">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-sasta-gold mb-1">
-                    {cat.itemCount}+ Designs Available
-                  </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold mb-2">
+              {/* Solid Content Panel */}
+              <div className="p-5 sm:p-6 bg-sasta-yellow-cream/40 border-t border-sasta-border text-center flex flex-col items-center flex-1 justify-between">
+                <div>
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-sasta-heading mb-1.5">
                     {cat.name}
                   </h3>
-                  <p className="text-xs text-white/80 line-clamp-2 max-w-xs mb-4 hidden sm:block">
+                  <p className="text-xs text-sasta-body line-clamp-2 max-w-xs mb-4">
                     {cat.description}
                   </p>
-
-                  <Link
-                    to={`/collection/${cat.slug}`}
-                    className="inline-flex items-center gap-2 bg-white text-sasta-heading hover:bg-sasta-gold text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded shadow-md transition-colors"
-                  >
-                    <span>Shop All</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
                 </div>
+
+                <Link
+                  to={`/collection/${cat.slug}`}
+                  className="inline-flex items-center gap-2 bg-sasta-gold hover:bg-sasta-gold-hover text-sasta-heading text-xs font-bold uppercase tracking-widest px-6 py-2.5 rounded-md shadow-xs transition-colors"
+                >
+                  <span>Shop All</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
             </div>
           ))}

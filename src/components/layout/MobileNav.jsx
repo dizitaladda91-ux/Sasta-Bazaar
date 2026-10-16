@@ -36,14 +36,13 @@ export default function MobileNav({ isOpen, onClose }) {
       <div className="relative w-full max-w-xs bg-white h-full shadow-2xl flex flex-col z-10 overflow-y-auto animate-fade-in">
         {/* Header */}
         <div className="p-4 border-b border-sasta-border flex items-center justify-between bg-sasta-yellow-cream">
-          <div>
-            <span className="font-serif font-bold text-lg tracking-wider text-sasta-navy">
-              SASTA BAZAAR
-            </span>
-            <span className="block text-[10px] tracking-widest text-sasta-gold-dark font-medium uppercase">
-              Everyday Luxury
-            </span>
-          </div>
+          <Link to="/" onClick={onClose} className="inline-block">
+            <img
+              src="/logo.png"
+              alt="SASTA BAZAAR - Everyday Luxury"
+              className="h-12 w-auto object-contain"
+            />
+          </Link>
           <button
             onClick={onClose}
             className="p-2 text-sasta-heading hover:bg-white rounded-full transition-colors"

@@ -122,16 +122,23 @@ export default function AdminDashboardPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Admin Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-sasta-border">
-          <div>
-            <span className="text-[10px] font-bold tracking-[0.25em] text-sasta-gold-dark uppercase block">
-              Independent Store Controller
-            </span>
-            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-sasta-navy">
-              Sasta Bazaar &bull; Store Admin
-            </h1>
-            <p className="text-xs text-sasta-muted mt-0.5">
-              Manage products, orders, inventory &amp; customers without Shopify dependency.
-            </p>
+          <div className="flex items-center gap-4">
+            <img
+              src="/logo.png"
+              alt="SASTA BAZAAR"
+              className="h-12 w-auto object-contain"
+            />
+            <div>
+              <span className="text-[10px] font-bold tracking-[0.25em] text-sasta-gold-dark uppercase block">
+                Independent Store Controller
+              </span>
+              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-sasta-navy">
+                Sasta Bazaar &bull; Store Admin
+              </h1>
+              <p className="text-xs text-sasta-muted mt-0.5">
+                Manage products, orders, inventory &amp; customers without Shopify dependency.
+              </p>
+            </div>
           </div>
 
           <div className="flex items-center gap-3">

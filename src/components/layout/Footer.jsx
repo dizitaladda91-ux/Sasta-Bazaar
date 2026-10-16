@@ -64,14 +64,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Column 1: Brand Blurb */}
           <div className="lg:col-span-2 space-y-4">
-            <div>
-              <span className="font-serif font-extrabold text-2xl tracking-wider text-sasta-navy">
-                SASTA BAZAAR
-              </span>
-              <span className="block text-[10px] tracking-[0.25em] text-sasta-gold-dark font-semibold uppercase">
-                Everyday Luxury
-              </span>
-            </div>
+            <Link to="/" className="inline-block mb-1">
+              <img
+                src="/logo.png"
+                alt="SASTA BAZAAR - Everyday Luxury"
+                className="h-16 w-auto object-contain"
+              />
+            </Link>
             <p className="text-xs sm:text-sm text-sasta-body leading-relaxed max-w-sm">
               Born from the universal desire for graceful, modest ethnic fashion at honest prices.
               We specialize in ladies and kids ethnic suits, designer lehengas, festive shararas,
