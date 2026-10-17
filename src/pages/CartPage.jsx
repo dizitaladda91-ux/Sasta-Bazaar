@@ -14,6 +14,7 @@ import {
   Lock
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 
 export default function CartPage() {
@@ -35,14 +36,29 @@ export default function CartPage() {
   const [loading, setLoading] = useState(false);
 
   // Customer Checkout Details
+  const { user } = useAuth();
   const [customer, setCustomer] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    postcode: ''
+    name: user?.name || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    address: user?.address?.street || '',
+    city: user?.address?.city || 'London',
+    postcode: user?.address?.postalCode || ''
   });
+
+  React.useEffect(() => {
+    if (user) {
+      setCustomer(prev => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        email: prev.email || user.email || '',
+        phone: prev.phone || user.phone || '',
+        address: prev.address || user.address?.street || '',
+        city: prev.city || user.address?.city || 'London',
+        postcode: prev.postcode || user.address?.postalCode || ''
+      }));
+    }
+  }, [user]);
 
   const applyPromo = (e) => {
     e.preventDefault();

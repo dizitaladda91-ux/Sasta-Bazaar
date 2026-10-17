@@ -8,7 +8,7 @@ export default function HeroBanner() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Text Content */}
-          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left z-10">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left z-10 animate-slide-left">
             <div className="inline-flex items-center gap-2 bg-sasta-yellow-soft/80 border border-sasta-gold/40 px-3.5 py-1.5 rounded-full text-xs font-bold text-sasta-navy tracking-wide">
               <Sparkles className="w-3.5 h-3.5 text-sasta-gold-dark" />
               <span>SPECIAL OFFERS &bull; UP TO 50% OFF</span>
@@ -62,7 +62,7 @@ export default function HeroBanner() {
           </div>
 
           {/* Image Feature Grid */}
-          <div className="lg:col-span-5 relative">
+          <div className="lg:col-span-5 relative animate-slide-right">
             <div className="relative mx-auto max-w-sm sm:max-w-md lg:max-w-none">
               {/* Main portrait image */}
               <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-2xl border-4 border-white bg-neutral-100">

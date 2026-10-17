@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { CATEGORIES } from '../../data/categories';
+import RevealOnScroll from '../common/RevealOnScroll';
 
 export default function CategoryTiles() {
   // 3 prominent tiles like Hijab House's Hijabs/Clothing/Caps pattern
   const topThree = CATEGORIES.slice(0, 3);
+  const directions = ['left', 'up', 'right'];
 
   return (
     <section className="py-12 sm:py-16 bg-white">
@@ -22,45 +24,49 @@ export default function CategoryTiles() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {topThree.map((cat) => (
-            <div
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 overflow-hidden">
+          {topThree.map((cat, idx) => (
+            <RevealOnScroll
               key={cat.id}
-              className="group rounded-xl overflow-hidden border border-sasta-border shadow-xs hover:shadow-card transition-all duration-300 flex flex-col bg-white"
+              direction={directions[idx] || 'up'}
+              delay={idx * 120}
+              className="h-full flex flex-col"
             >
-              {/* Image Frame */}
-              <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-neutral-100">
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute top-3 left-3 bg-white text-sasta-navy text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded shadow-xs border border-sasta-border">
-                  {cat.itemCount}+ Designs
-                </div>
-              </div>
-
-              {/* Solid Content Panel */}
-              <div className="p-5 sm:p-6 bg-sasta-yellow-cream/40 border-t border-sasta-border text-center flex flex-col items-center flex-1 justify-between">
-                <div>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-sasta-heading mb-1.5">
-                    {cat.name}
-                  </h3>
-                  <p className="text-xs text-sasta-body line-clamp-2 max-w-xs mb-4">
-                    {cat.description}
-                  </p>
+              <div className="group rounded-xl overflow-hidden border border-sasta-border shadow-xs hover:shadow-card transition-all duration-300 flex flex-col bg-white h-full">
+                {/* Image Frame */}
+                <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute top-3 left-3 bg-white text-sasta-navy text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded shadow-xs border border-sasta-border">
+                    {cat.itemCount}+ Designs
+                  </div>
                 </div>
 
-                <Link
-                  to={`/collection/${cat.slug}`}
-                  className="inline-flex items-center gap-2 bg-sasta-gold hover:bg-sasta-gold-hover text-sasta-heading text-xs font-bold uppercase tracking-widest px-6 py-2.5 rounded-md shadow-xs transition-colors"
-                >
-                  <span>Shop All</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                {/* Solid Content Panel */}
+                <div className="p-5 sm:p-6 bg-sasta-yellow-cream/40 border-t border-sasta-border text-center flex flex-col items-center flex-1 justify-between">
+                  <div>
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-sasta-heading mb-1.5">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs text-sasta-body line-clamp-2 max-w-xs mb-4">
+                      {cat.description}
+                    </p>
+                  </div>
+
+                  <Link
+                    to={`/collection/${cat.slug}`}
+                    className="inline-flex items-center gap-2 bg-sasta-gold hover:bg-sasta-gold-hover text-sasta-heading text-xs font-bold uppercase tracking-widest px-6 py-2.5 rounded-md shadow-xs transition-colors"
+                  >
+                    <span>Shop All</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
-            </div>
+            </RevealOnScroll>
           ))}
         </div>
       </div>

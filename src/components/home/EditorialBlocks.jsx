@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Feather } from 'lucide-react';
+import RevealOnScroll from '../common/RevealOnScroll';
 
 export default function EditorialBlocks() {
   return (
     <section className="py-12 sm:py-20 bg-sasta-yellow-cream/40 border-y border-sasta-border space-y-16 sm:space-y-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Block 1: Premium Cotton Wear (Image Right, Text Left) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center mb-16 sm:mb-24">
-          <div className="lg:col-span-6 space-y-4 sm:space-y-6 order-2 lg:order-1 text-center lg:text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center mb-16 sm:mb-24 overflow-hidden">
+          <RevealOnScroll direction="left" className="lg:col-span-6 space-y-4 sm:space-y-6 order-2 lg:order-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-1.5 text-xs font-bold tracking-[0.25em] text-sasta-gold-dark uppercase">
               <Feather className="w-4 h-4 text-sasta-gold-dark" />
               <span>Perfect For Every Occasion</span>
@@ -35,9 +36,9 @@ export default function EditorialBlocks() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
-          </div>
+          </RevealOnScroll>
 
-          <div className="lg:col-span-6 order-1 lg:order-2">
+          <RevealOnScroll direction="right" delay={150} className="lg:col-span-6 order-1 lg:order-2">
             <div className="relative aspect-[4/5] rounded-lg overflow-hidden shadow-xl border-4 border-white bg-neutral-100">
               <img
                 src="https://cdn.shopify.com/s/files/1/1083/5361/8269/files/IMG_3452.jpg?v=1782585999"
@@ -49,12 +50,12 @@ export default function EditorialBlocks() {
                 100% Pure Cotton
               </div>
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
 
         {/* Block 2: Redefine Your Style with Modern Comfort (Image Left, Text Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-          <div className="lg:col-span-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center overflow-hidden">
+          <RevealOnScroll direction="left" className="lg:col-span-6">
             <div className="relative aspect-[4/5] rounded-lg overflow-hidden shadow-xl border-4 border-white bg-neutral-100">
               <img
                 src="https://cdn.shopify.com/s/files/1/1083/5361/8269/files/3A946126-52FC-4483-B2FA-DA3763993990.jpg?v=1782935535"
@@ -66,9 +67,9 @@ export default function EditorialBlocks() {
                 Handcrafted Zarkan Work
               </div>
             </div>
-          </div>
+          </RevealOnScroll>
 
-          <div className="lg:col-span-6 space-y-4 sm:space-y-6 text-center lg:text-left">
+          <RevealOnScroll direction="right" delay={150} className="lg:col-span-6 space-y-4 sm:space-y-6 text-center lg:text-left">
             <div className="inline-flex items-center gap-1.5 text-xs font-bold tracking-[0.25em] text-sasta-gold-dark uppercase">
               <Sparkles className="w-4 h-4 text-sasta-gold-dark" />
               <span>Contemporary Grace</span>
@@ -95,7 +96,7 @@ export default function EditorialBlocks() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
-          </div>
+          </RevealOnScroll>
         </div>
       </div>
     </section>

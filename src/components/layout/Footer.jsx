@@ -117,6 +117,11 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
+                <Link to="/login" className="hover:text-sasta-gold-dark transition-colors font-medium text-sasta-navy">
+                  Customer Sign In &amp; Register (10% Off)
+                </Link>
+              </li>
+              <li>
                 <Link to="/size-guide" className="hover:text-sasta-gold-dark transition-colors">
                   Size Guide &amp; Measurements
                 </Link>

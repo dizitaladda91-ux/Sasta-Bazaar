@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider, useCart } from './context/CartContext';
 import { WishlistProvider, useWishlist } from './context/WishlistContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 // Layout
 import AnnouncementBar from './components/layout/AnnouncementBar';
@@ -25,6 +26,7 @@ import CustomizationPage from './pages/CustomizationPage';
 import CareInstructionsPage from './pages/CareInstructionsPage';
 import TrackOrderPage from './pages/TrackOrderPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import AuthPage from './pages/AuthPage';
 
 // Policies
 import PrivacyPolicyPage from './pages/policies/PrivacyPolicyPage';
@@ -38,7 +40,8 @@ import NotFoundPage from './pages/NotFoundPage';
 function ToastAlert() {
   const { notification: cartNote } = useCart();
   const { notification: wishNote } = useWishlist();
-  const note = cartNote || wishNote;
+  const { notification: authNote } = useAuth();
+  const note = cartNote || wishNote || authNote;
 
   if (!note) return null;
 
@@ -72,6 +75,9 @@ function MainLayout() {
           <Route path="/care-instructions" element={<CareInstructionsPage />} />
           <Route path="/track-order" element={<TrackOrderPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/register" element={<AuthPage />} />
+          <Route path="/account" element={<AuthPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/shipping-policy" element={<ShippingPolicyPage />} />
           <Route path="/refund-policy" element={<RefundPolicyPage />} />
@@ -90,11 +96,13 @@ function MainLayout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <CartProvider>
-        <WishlistProvider>
-          <MainLayout />
-        </WishlistProvider>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <MainLayout />
+          </WishlistProvider>
+        </CartProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

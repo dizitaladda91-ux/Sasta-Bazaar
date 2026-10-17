@@ -1,0 +1,17 @@
+[
+  {
+    "id": "USR-1001",
+    "name": "Ayesha Khan",
+    "email": "ayesha.khan@example.co.uk",
+    "password": "password123",
+    "phone": "+44 7700 900123",
+    "address": {
+      "street": "14 Kensington Church Street",
+      "city": "London",
+      "postalCode": "W8 4EP",
+      "country": "United Kingdom"
+    },
+    "role": "customer",
+    "joinedAt": "2026-10-10T12:00:00.000Z"
+  }
+]

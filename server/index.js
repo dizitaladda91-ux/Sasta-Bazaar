@@ -20,6 +20,7 @@ const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 const INQUIRIES_FILE = path.join(DATA_DIR, 'inquiries.json');
 const SUBSCRIBERS_FILE = path.join(DATA_DIR, 'subscribers.json');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
 
 // Helper functions for reading & writing database files
 const readJson = (file) => {
@@ -363,7 +364,173 @@ app.post('/api/newsletter', (req, res) => {
 });
 
 // ==========================================
-// 5. ADMIN API (FULL STORE MANAGEMENT)
+// 5. CUSTOMER AUTHENTICATION & ACCOUNT API
+// ==========================================
+
+// POST /api/auth/register - Create customer account
+app.post('/api/auth/register', (req, res) => {
+  const { name, email, password, phone, newsletter } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: 'Name, email and password are required'
+    });
+  }
+
+  const normalizedEmail = email.toLowerCase().trim();
+  const users = readJson(USERS_FILE);
+
+  const existing = users.find(u => u.email.toLowerCase() === normalizedEmail);
+  if (existing) {
+    return res.status(409).json({
+      success: false,
+      message: 'An account with this email address already exists. Please log in.'
+    });
+  }
+
+  const newUser = {
+    id: `USR-${Date.now().toString().slice(-6)}`,
+    name: name.trim(),
+    email: normalizedEmail,
+    password: password, // In production, hash with bcrypt
+    phone: phone ? phone.trim() : '',
+    address: {
+      street: '',
+      city: 'London',
+      postalCode: '',
+      country: 'United Kingdom'
+    },
+    role: 'customer',
+    joinedAt: new Date().toISOString()
+  };
+
+  users.push(newUser);
+  writeJson(USERS_FILE, users);
+
+  // If opted into newsletter, record in subscribers
+  if (newsletter) {
+    const subscribers = readJson(SUBSCRIBERS_FILE);
+    if (!subscribers.some(s => s.email === normalizedEmail)) {
+      subscribers.unshift({
+        id: `SUB-${Date.now()}`,
+        email: normalizedEmail,
+        couponCode: 'WELCOME10',
+        createdAt: new Date().toISOString()
+      });
+      writeJson(SUBSCRIBERS_FILE, subscribers);
+    }
+  }
+
+  // Return user without password
+  const { password: _, ...safeUser } = newUser;
+
+  res.status(201).json({
+    success: true,
+    message: 'Welcome to Sasta Bazaar! Your account has been created.',
+    user: safeUser,
+    couponCode: 'WELCOME10'
+  });
+});
+
+// POST /api/auth/login - Authenticate customer
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: 'Email and password are required'
+    });
+  }
+
+  const normalizedEmail = email.toLowerCase().trim();
+  const users = readJson(USERS_FILE);
+
+  const user = users.find(u => u.email.toLowerCase() === normalizedEmail);
+  if (!user || user.password !== password) {
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid email or password. Please check your credentials.'
+    });
+  }
+
+  const { password: _, ...safeUser } = user;
+
+  res.json({
+    success: true,
+    message: 'Signed in successfully!',
+    user: safeUser
+  });
+});
+
+// GET /api/auth/profile - Get customer profile
+app.get('/api/auth/profile', (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email query parameter required' });
+  }
+
+  const users = readJson(USERS_FILE);
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase().trim());
+  if (!user) {
+    return res.status(404).json({ success: false, message: 'User not found' });
+  }
+
+  const { password: _, ...safeUser } = user;
+  res.json({ success: true, user: safeUser });
+});
+
+// PUT /api/auth/profile - Update profile details
+app.put('/api/auth/profile', (req, res) => {
+  const { email, name, phone, address } = req.body;
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'User email is required' });
+  }
+
+  let users = readJson(USERS_FILE);
+  const index = users.findIndex(u => u.email.toLowerCase() === email.toLowerCase().trim());
+  if (index === -1) {
+    return res.status(404).json({ success: false, message: 'User not found' });
+  }
+
+  users[index] = {
+    ...users[index],
+    name: name !== undefined ? name.trim() : users[index].name,
+    phone: phone !== undefined ? phone.trim() : users[index].phone,
+    address: address ? { ...users[index].address, ...address } : users[index].address
+  };
+
+  writeJson(USERS_FILE, users);
+
+  const { password: _, ...safeUser } = users[index];
+  res.json({
+    success: true,
+    message: 'Profile updated successfully',
+    user: safeUser
+  });
+});
+
+// GET /api/auth/orders - Get customer orders
+app.get('/api/auth/orders', (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required' });
+  }
+
+  const orders = readJson(ORDERS_FILE);
+  const userOrders = orders.filter(
+    o => o.customer && o.customer.email && o.customer.email.toLowerCase() === email.toLowerCase().trim()
+  );
+
+  res.json({
+    success: true,
+    orders: userOrders
+  });
+});
+
+// ==========================================
+// 6. ADMIN API (FULL STORE MANAGEMENT)
 // ==========================================
 
 // GET /api/admin/stats - Overview metrics

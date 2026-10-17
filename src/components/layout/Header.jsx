@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Heart, ShoppingBag, Menu, User, ChevronDown } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { useAuth } from '../../context/AuthContext';
 import MegaMenu from './MegaMenu';
 import MobileNav from './MobileNav';
 import SearchModal from './SearchModal';
@@ -17,6 +18,7 @@ export default function Header() {
 
   const { totalCount, openCart } = useCart();
   const { wishlistCount } = useWishlist();
+  const { user, isAuthenticated } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -84,11 +86,16 @@ export default function Header() {
             {/* Right Column: Account, Wishlist, Cart */}
             <div className="flex items-center justify-end gap-1 sm:gap-2">
               <Link
-                to="/about"
-                className="hidden sm:inline-flex p-2 text-sasta-heading hover:text-sasta-gold-dark hover:bg-sasta-yellow-cream rounded-full transition-colors"
-                title="Account / Our Brand"
+                to={isAuthenticated ? "/account" : "/login"}
+                className="hidden sm:inline-flex items-center gap-1.5 p-2 text-sasta-heading hover:text-sasta-gold-dark hover:bg-sasta-yellow-cream rounded-full transition-colors"
+                title={isAuthenticated ? `My Account (${user?.name})` : "Sign In / Register"}
               >
                 <User className="w-5 h-5" />
+                {isAuthenticated && (
+                  <span className="hidden xl:inline text-xs font-bold text-sasta-navy max-w-[90px] truncate">
+                    {user?.name?.split(' ')[0]}
+                  </span>
+                )}
               </Link>
 
               {/* Wishlist */}

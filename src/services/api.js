@@ -154,5 +154,78 @@ export const api = {
       method: 'DELETE'
     });
     return await res.json();
+  },
+
+  // 8. Customer Authentication & Account
+  async register(userData) {
+    try {
+      const res = await fetch(`${API_BASE}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      return await res.json();
+    } catch (e) {
+      // Offline fallback
+      return {
+        success: true,
+        message: 'Account created (offline mode)',
+        user: {
+          id: `USR-${Date.now().toString().slice(-6)}`,
+          name: userData.name,
+          email: userData.email,
+          phone: userData.phone || '',
+          address: { street: '', city: 'London', postalCode: '', country: 'United Kingdom' },
+          joinedAt: new Date().toISOString()
+        }
+      };
+    }
+  },
+
+  async login(credentials) {
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials)
+      });
+      return await res.json();
+    } catch (e) {
+      // Offline fallback
+      return {
+        success: true,
+        message: 'Signed in successfully (offline mode)',
+        user: {
+          id: 'USR-1001',
+          name: credentials.email.split('@')[0],
+          email: credentials.email,
+          phone: '+44 7700 900123',
+          address: { street: '14 Kensington Church St', city: 'London', postalCode: 'W8 4EP', country: 'United Kingdom' },
+          joinedAt: new Date().toISOString()
+        }
+      };
+    }
+  },
+
+  async getUserOrders(email) {
+    try {
+      const res = await fetch(`${API_BASE}/auth/orders?email=${encodeURIComponent(email)}`);
+      return await res.json();
+    } catch (e) {
+      return { success: true, orders: [] };
+    }
+  },
+
+  async updateProfile(profileData) {
+    try {
+      const res = await fetch(`${API_BASE}/auth/profile`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(profileData)
+      });
+      return await res.json();
+    } catch (e) {
+      return { success: true, user: profileData };
+    }
   }
 };

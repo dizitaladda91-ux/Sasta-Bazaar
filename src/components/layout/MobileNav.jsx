@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { X, ChevronDown, ChevronRight, Heart, ShoppingBag, ShieldCheck } from 'lucide-react';
+import { X, ChevronDown, ChevronRight, Heart, ShoppingBag, ShieldCheck, User } from 'lucide-react';
 import { useWishlist } from '../../context/WishlistContext';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 
 export default function MobileNav({ isOpen, onClose }) {
   const [openSections, setOpenSections] = useState({
@@ -13,6 +14,7 @@ export default function MobileNav({ isOpen, onClose }) {
 
   const { wishlistCount } = useWishlist();
   const { totalCount, openCart } = useCart();
+  const { user, isAuthenticated } = useAuth();
 
   if (!isOpen) return null;
 
@@ -52,12 +54,22 @@ export default function MobileNav({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Quick action strip */}
-        <div className="grid grid-cols-2 border-b border-sasta-border text-xs divide-x divide-sasta-border bg-white">
+        {/* Quick action strip: Account, Wishlist, Bag */}
+        <div className="grid grid-cols-3 border-b border-sasta-border text-[11px] divide-x divide-sasta-border bg-white">
+          <Link
+            to={isAuthenticated ? "/account" : "/login"}
+            onClick={handleLinkClick}
+            className="p-2.5 flex flex-col items-center justify-center gap-1 hover:bg-sasta-yellow-cream transition-colors text-sasta-heading font-medium text-center"
+          >
+            <User className="w-4 h-4 text-sasta-gold-dark" />
+            <span className="truncate max-w-[85px]">
+              {isAuthenticated ? user?.name?.split(' ')[0] : 'Sign In'}
+            </span>
+          </Link>
           <Link
             to="/wishlist"
             onClick={handleLinkClick}
-            className="p-3 flex items-center justify-center gap-2 hover:bg-sasta-yellow-cream transition-colors text-sasta-heading font-medium"
+            className="p-2.5 flex flex-col items-center justify-center gap-1 hover:bg-sasta-yellow-cream transition-colors text-sasta-heading font-medium text-center"
           >
             <Heart className="w-4 h-4 text-sasta-gold-dark" />
             <span>Wishlist ({wishlistCount})</span>
@@ -67,7 +79,7 @@ export default function MobileNav({ isOpen, onClose }) {
               onClose();
               openCart();
             }}
-            className="p-3 flex items-center justify-center gap-2 hover:bg-sasta-yellow-cream transition-colors text-sasta-heading font-medium"
+            className="p-2.5 flex flex-col items-center justify-center gap-1 hover:bg-sasta-yellow-cream transition-colors text-sasta-heading font-medium text-center"
           >
             <ShoppingBag className="w-4 h-4 text-sasta-gold-dark" />
             <span>Bag ({totalCount})</span>
